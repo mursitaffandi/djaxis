@@ -1,1 +1,8 @@
-Djaxis (Django Praxis) :)
+Djaxis (Django Praxis) :) </br>
+<a href="about">About Us?</a> </br>
+<form method="POST">
+    {% csrf_token %}
+    Username
+    <input type="text" name="username"/>
+    <button type="submit">submit</button>
+</form>
