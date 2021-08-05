@@ -10,3 +10,8 @@ Djaxis (Django Praxis) :) </br>
     <input type="password" name="confirm_pasword"/>
     <button type="submit">submit</button>
 </form>
+<div>
+    {% for d in list_tugas %}
+    <li>{{ d.name }}</li>
+    {% endfor %}
+</div>
