@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from . import models
 # Create your views here.
+
 
 def index(req):
 	if req.POST:
@@ -15,6 +16,20 @@ def index(req):
 		'list_tugas' : data,
 		})
 
+def update(req, id):
+	currentData = models.tugas.objects.filter(pk=id)
+	if req.POST:
+		new_name = req.POST['username']
+		currentData.update(name = new_name)
+		return redirect('/')
+
+	return render(req, 'update.html', {
+		'current_name' : currentData.first().name
+	})
+
+def delete(req, id):
+	models.tugas.objects.filter(pk=id).delete()
+	return redirect('/')
 
 def about(req):
 	return render(req, 'about.html')
