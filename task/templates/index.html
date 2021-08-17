@@ -19,11 +19,11 @@ Djaxis (Django Praxis) :) </br>
     </tr>
     {% for d in list_tugas %}
     <tr>
-        <td>{{ d.pk }}</td>
-        <td>{{ d.name }}</td>
+        <td>{{ d.0 }}</td>
+        <td>{{ d.1 }}</td>
         <td>
-            <a href="update/{{ d.pk }}">update</a> 
-            <a href="delete/{{ d.pk }}">delete</a> 
+            <a href="update/{{ d.0 }}">update</a> 
+            <a href="delete/{{ d.1 }}">delete</a> 
         </td>
     </tr>
     {% endfor %}    

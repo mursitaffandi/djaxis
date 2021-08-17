@@ -1,19 +1,36 @@
 from django.shortcuts import redirect, render
 from . import models
+import psycopg2
+from config.config import config
+
 # Create your views here.
 
 
 def index(req):
+	params = config('config/database.ini')
+	conn = psycopg2.connect(**params)
+
+	cur = conn.cursor()
+
 	if req.POST:
 		username = req.POST['username']
 		confirm_pasword = req.POST['confirm_pasword']
-		print(username)
-		print(confirm_pasword)
-		models.tugas.objects.create(name=username)
+		
+		cur.execute("INSERT INTO task_tugas(name) VALUES(%s);", (username,))
+		conn.commit()
+		# models.tugas.objects.create(name=username)
 	
-	data = models.tugas.objects.all()
+	# data = models.tugas.objects.all()
+	data = cur.execute("select * from task_tugas")
+	dataFetch = cur.fetchall()
+	for row in dataFetch:
+		print("Id = ", row[0], )
+		print("name = ", row[1], "\n")
+
+	cur.close()
+	conn.close()
 	return render(req, 'index.html', {
-		'list_tugas' : data,
+		'list_tugas' : dataFetch,
 		})
 
 def update(req, id):
