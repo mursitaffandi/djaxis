@@ -1,5 +1,4 @@
 #!/usr/bin/python
-import sys
 import psycopg2
 from config import config
 
@@ -8,11 +7,11 @@ def connect():
     conn = None
     try:
         # read connection parameters
-        params = config(sys.argv[0])
+        params = config()
 
         # connect to the PostgreSQL server
         print('Connecting to the PostgreSQL database...')
-        conn = psycopg2.connect(**params)
+        conn = psycopg2.connect(params)
 		
         # create a cursor
         cur = conn.cursor()
